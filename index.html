@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Rock Paper Scissors Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <p>This is a simple Rock-Paper-Scissors game that you can play in your browser.</p>
+    <p>You will be prompted for your choice five times, and the computer will randomly pick its own choice.</p>
+
+    <!-- Button to start the game -->
+    <button id="startButton">Start</button>
+
+    <!-- Container to display the final result after five rounds -->
+    <div id="resultDisplay"></div>
+
+    <!-- Linking the external JavaScript file -->
+    <script src="script.js"></script>
+
+    <!-- Attach event listener to the start button -->
+    <script>
+        document.getElementById("startButton").addEventListener("click", startGame);
+    </script>
+</body>
+</html>
