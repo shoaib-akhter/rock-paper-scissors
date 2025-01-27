@@ -1,14 +1,47 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 2rem;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f9f9f9;
 }
-#startButton {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+
+h1 {
+    margin-bottom: 1rem;
+}
+
+#gameControls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
     cursor: pointer;
+    border: 3px solid black;
+    border-radius: 5px;
+    background-color: #ffb300;
+    color: rgb(10, 10, 10);
+    transition: background-color 0.3s;
 }
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
 #resultDisplay {
-    margin-top: 1rem;
     font-weight: bold;
-    white-space: pre-line; /* So newlines in the text are displayed properly */
+    text-align: center;
+    white-space: pre-line;
 }

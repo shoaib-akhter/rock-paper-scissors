@@ -14,32 +14,6 @@ function getComputerChoice(choices) {
     return choices[randomIndex];
 }
 
-// Prompt-based user input
-function getHumanChoice() {
-    let humanChoice;
-    const validChoices = ["rock", "paper", "scissors"];
-
-    do {
-        // Get user input and convert it to lowercase
-        humanChoice = prompt("What's your choice? Enter one of 'Rock', 'Paper', or 'Scissors': ");
-
-        // Handle cancel button
-        if (humanChoice === null) {
-            alert("You clicked Cancel. Please try again.");
-            continue;
-        }
-
-        humanChoice = humanChoice.toLowerCase();
-
-        // Check if the input is valid
-        if (!validChoices.includes(humanChoice)) {
-            alert("Invalid choice! Please enter 'Rock', 'Paper', or 'Scissors'.");
-        }
-    } while (!validChoices.includes(humanChoice)); // Repeat until valid input
-
-    return humanChoice;
-}
-
 // Determine winner for one round
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
@@ -57,32 +31,44 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-// Main game logic: run five rounds
-function startGame() {
-    // Reset scores each time the game starts
-    humanScore = 0;
-    computerScore = 0;
+// Add event listeners for buttons
+document.getElementById("rockButton").addEventListener("click", () => playGame("rock"));
+document.getElementById("paperButton").addEventListener("click", () => playGame("paper"));
+document.getElementById("scissorsButton").addEventListener("click", () => playGame("scissors"));
 
-    // Play 5 rounds
-    for (let i = 0; i < 5; i++) {
-        const userPick = getHumanChoice();
-        const compPick = getComputerChoice(arrayChoices);
+function playGame(playerChoice) {
+    const computerChoice = getComputerChoice(arrayChoices);
+    const roundResult = playRound(playerChoice, computerChoice);
 
-        const result = playRound(userPick, compPick);
-        // Show round results in an alert
-        alert(`${result}\n\n- Your choice: ${userPick}\n- Computer's choice: ${compPick}`);
+    // Check if someone has won the game
+    if (humanScore === 5 || computerScore === 5) {
+        // Announce the winner
+        const winner = humanScore === 5 ? "You win the game!" : "Computer wins the game!";
+        document.getElementById("resultDisplay").innerText = `
+            ${roundResult}\n
+            - Your choice: ${playerChoice}
+            - Computer's choice: ${computerChoice}\n
+            Final Scores:\n
+            - You: ${humanScore}
+            - Computer: ${computerScore}\n
+            ${winner}\n\nRefresh the page to play again.
+        `;
+
+        // Disable buttons
+        document.getElementById("rockButton").disabled = true;
+        document.getElementById("paperButton").disabled = true;
+        document.getElementById("scissorsButton").disabled = true;
+
+        return; // Exit the function
     }
 
-    // Construct final result
-    let finalMessage = `Final Scores:\n- You: ${humanScore}\n- Computer: ${computerScore}\n`;
-    if (humanScore > computerScore) {
-        finalMessage += "\nYou win the game!";
-    } else if (computerScore > humanScore) {
-        finalMessage += "\nYou lose the game!";
-    } else {
-        finalMessage += "\nThe game is a tie!";
-    }
-
-    // Display final result in the #resultDisplay div
-    document.getElementById("resultDisplay").innerText = finalMessage;
+    // Display round result and current scores
+    document.getElementById("resultDisplay").innerText = `
+        ${roundResult}\n
+        - Your choice: ${playerChoice}
+        - Computer's choice: ${computerChoice}\n
+        Current Scores:\n
+        - You: ${humanScore}
+        - Computer: ${computerScore}
+    `;
 }
